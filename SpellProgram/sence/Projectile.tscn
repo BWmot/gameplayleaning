@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgc06rxcf23ou"]
+
+[ext_resource type="Script" uid="uid://67nmbuqqi5vd" path="res://SpellProgram/Src/Projectile.cs" id="1_aa3ol"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frysv"]
+
+[node name="Projectile" type="Area2D"]
+script = ExtResource("1_aa3ol")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_frysv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
