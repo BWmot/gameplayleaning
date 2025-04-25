@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcdscadl2h8ye"]
+
+[ext_resource type="PackedScene" uid="uid://drynofetip2ag" path="res://3c/2dcontroller/prefab/player.tscn" id="1_t84yw"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_t84yw")]

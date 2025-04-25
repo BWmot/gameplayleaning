@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgc06rxcf23ou"]
+[gd_scene load_steps=4 format=3 uid="uid://bgc06rxcf23ou"]
 
 [ext_resource type="Script" uid="uid://67nmbuqqi5vd" path="res://SpellProgram/Src/Projectile.cs" id="1_aa3ol"]
+[ext_resource type="Texture2D" uid="uid://o7nmsdqv1ws5" path="res://art/Soldier.png" id="2_g78gn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_frysv"]
 
@@ -11,3 +12,6 @@ script = ExtResource("1_aa3ol")
 shape = SubResource("RectangleShape2D_frysv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_g78gn")
+region_enabled = true
+region_rect = Rect2(0.025, 0, 100, 100)
