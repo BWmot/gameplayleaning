@@ -17,7 +17,7 @@ public partial class SpellCaster : Node2D
             CurrentWand.TryCast(this);
         }
     }
-    
+
     // 生成投射物的方法
     public void SpawnProjectile(PackedScene projectileScene, Vector2 direction, Dictionary<string, float> properties)
     {
@@ -26,16 +26,23 @@ public partial class SpellCaster : Node2D
             GD.PrintErr("错误：ProjectileScene 为空！请确保在编辑器中分配了场景资源。");
             return;
         }
-        
+
         var projectile = projectileScene.Instantiate<Node2D>();
         GetTree().Root.AddChild(projectile);
         projectile.GlobalPosition = GlobalPosition;
-        
+
         // 设置投射物属性
         if (projectile is Projectile p)
         {
             p.Direction = direction;
             p.ApplyProperties(properties);
+        }
+        
+        // 记录到调试UI
+        var debugUI = GetNode<SpellDebugUI>("/root/spellprogram_main_debug/DebugUI");
+        if (debugUI != null)
+        {
+            // 这里可以传递更多具体数据
         }
     }
 }

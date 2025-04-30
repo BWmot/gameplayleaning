@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cggdffxm4ga3x"]
 
-[ext_resource type="Script" uid="uid://dsplo6jgswvaq" path="res://SpellProgram/Src/Wand.cs" id="1_730pd"]
+[ext_resource type="Script" uid="uid://dsplo6jgswvaq" path="res://SpellProgram/Src/base/Wand.cs" id="1_730pd"]
 
 [node name="Wand" type="Node2D"]
 script = ExtResource("1_730pd")

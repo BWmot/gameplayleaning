@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj5le77pcsgau"]
+
+[ext_resource type="Script" uid="uid://hfhs7jad1nom" path="res://UIFramework/Examples/UIFrameworkDemo.cs" id="1_23mbt"]
+
+[node name="UiFrameworkDemo" type="Node"]
+script = ExtResource("1_23mbt")

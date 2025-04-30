@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://hiobjxnuld0i"]
+[gd_scene load_steps=5 format=3 uid="uid://hiobjxnuld0i"]
 
 [ext_resource type="Script" uid="uid://clgj3ddbylpb0" path="res://SpellProgram/sence/SpellprogramMainDebug.cs" id="1_usecy"]
 [ext_resource type="PackedScene" uid="uid://cggdffxm4ga3x" path="res://SpellProgram/sence/Wand.tscn" id="2_ha2dx"]
 [ext_resource type="PackedScene" uid="uid://bgc06rxcf23ou" path="res://SpellProgram/sence/Projectile.tscn" id="3_hvsmv"]
+[ext_resource type="Script" uid="uid://cueaenf0ls02j" path="res://SpellProgram/Src/base/SpellDebugUI.cs" id="4_hvsmv"]
 
 [node name="spellprogram_main_debug" type="Node2D"]
 script = ExtResource("1_usecy")
 WandScene = ExtResource("2_ha2dx")
 ProjectileScene = ExtResource("3_hvsmv")
+
+[node name="DebugUI" type="CanvasLayer" parent="."]
+script = ExtResource("4_hvsmv")

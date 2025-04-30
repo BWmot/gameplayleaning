@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://b2p4xk4nsmbhv"]
+
+[ext_resource type="Script" uid="uid://db5gd78pxbfkc" path="res://UIFramework/Scripts/Resources/UIDefinitionsResource.cs" id="1_qd6ha"]
+[ext_resource type="Script" uid="uid://dvdqfbayrhv5b" path="res://UIFramework/Scripts/Resources/UIDefinition.cs" id="2_gp5jm"]
+
+[sub_resource type="Resource" id="Resource_mainmenu"]
+script = ExtResource("2_gp5jm")
+Type = "MainMenu"
+Layer = "Normal"
+ScenePath = "res://UIFramework/Scenes/MainMenu.tscn"
+
+[sub_resource type="Resource" id="Resource_pausemenu"]
+script = ExtResource("2_gp5jm")
+Type = "PauseMenu"
+Layer = "Popup"
+ScenePath = "res://UIFramework/Scenes/PauseMenu.tscn"
+
+[sub_resource type="Resource" id="Resource_gameoverscreen"]
+script = ExtResource("2_gp5jm")
+Type = "GameOverScreen"
+Layer = "Popup"
+ScenePath = "res://UIFramework/Scenes/GameOverScreen.tscn"
+
+[resource]
+script = ExtResource("1_qd6ha")
+Definitions = [SubResource("Resource_mainmenu"), SubResource("Resource_pausemenu"), SubResource("Resource_gameoverscreen")]

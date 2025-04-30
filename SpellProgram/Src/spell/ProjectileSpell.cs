@@ -19,12 +19,12 @@ public partial class ProjectileSpell : Spell
         Properties["speed"] = 300;
         Properties["lifetime"] = 3;
     }
-    
+
     public override void Cast(SpellCaster caster, List<Spell> spellStack)
     {
         // 应用所有修饰符
         Dictionary<string, float> finalProperties = new Dictionary<string, float>(Properties);
-        
+
         foreach (var spell in spellStack)
         {
             if (spell.Type == SpellType.Modifier)
@@ -32,9 +32,17 @@ public partial class ProjectileSpell : Spell
                 spell.ModifySpell(this);
             }
         }
-        
+
         // 生成投射物
         caster.SpawnProjectile(ProjectileScene, caster.CastDirection, finalProperties);
+
+        // 记录到调试UI (如果存在)
+        SpellDebugUI debugUI = caster.GetNode<SpellDebugUI>("/root/spellprogram_main_debug/DebugUI");
+        if (debugUI != null)
+        {
+            debugUI.LogSpellCast(this, finalProperties);
+        }
+
     }
 }
 
