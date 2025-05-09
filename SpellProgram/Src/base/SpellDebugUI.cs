@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 public partial class SpellDebugUI : CanvasLayer
 {
-    // UI组件引用
-    private Label _wandStatsLabel;
-    private Label _spellQueueLabel;
-    private Label _activeEffectsLabel;
+    // 使用导出变量引用场景中的UI组件
+    [Export] private Label _wandStatsLabel;
+    [Export] private Label _spellQueueLabel;
+    [Export] private Label _activeEffectsLabel;
     
     // 引用到需要监视的对象
     private Wand _targetWand;
@@ -19,31 +19,18 @@ public partial class SpellDebugUI : CanvasLayer
     private float _effectDisplayTime = 3.0f; // 效果显示持续时间
     private float _effectTimer = 0;
     
+    // 不再需要在代码中创建UI
     public override void _Ready()
     {
-        // 创建UI布局
-        CreateDebugUI();
-    }
-    
-    private void CreateDebugUI()
-    {
-        // 法杖状态面板
-        _wandStatsLabel = new Label();
-        _wandStatsLabel.Position = new Vector2(20, 20);
-        _wandStatsLabel.Size = new Vector2(300, 150);
-        AddChild(_wandStatsLabel);
+        // 如果在编辑器中未指定引用，可以尝试通过路径查找
+        if (_wandStatsLabel == null)
+            _wandStatsLabel = GetNode<Label>("DebugUI/Control/WandStatsLabel");
         
-        // 法术队列面板
-        _spellQueueLabel = new Label();
-        _spellQueueLabel.Position = new Vector2(20, 180);
-        _spellQueueLabel.Size = new Vector2(300, 250);
-        AddChild(_spellQueueLabel);
-        
-        // 当前效果面板
-        _activeEffectsLabel = new Label();
-        _activeEffectsLabel.Position = new Vector2(600, 20);
-        _activeEffectsLabel.Size = new Vector2(400, 200);
-        AddChild(_activeEffectsLabel);
+        if (_spellQueueLabel == null)
+            _spellQueueLabel = GetNode<Label>("DebugUI/Control/SpellQueueLabel");
+            
+        if (_activeEffectsLabel == null)
+            _activeEffectsLabel = GetNode<Label>("DebugUI/Control/ActiveEffectsLabel");
     }
     
     public override void _Process(double delta)

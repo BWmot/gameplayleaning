@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://blpomsme3ni5l"]
+[gd_scene load_steps=3 format=3 uid="uid://blpomsme3ni5l"]
+
+[ext_resource type="PackedScene" uid="uid://bcdscadl2h8ye" path="res://3c/2dcontroller/2dcontroller_debug.tscn" id="1_1ruxq"]
+[ext_resource type="PackedScene" uid="uid://hiobjxnuld0i" path="res://SpellProgram/sence/spellprogram_main_debug.tscn" id="2_vnbvn"]
 
 [node name="MainDebug" type="Node2D"]
+
+[node name="2dcontroller_debug" parent="." instance=ExtResource("1_1ruxq")]
+
+[node name="spellprogram_main_debug" parent="2dcontroller_debug" instance=ExtResource("2_vnbvn")]

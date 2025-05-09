@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkaxpvfvjsugi"]
+
+[ext_resource type="Script" uid="uid://cueaenf0ls02j" path="res://SpellProgram/Src/base/SpellDebugUI.cs" id="1_3h8aa"]
+
+[node name="SpellDebugUi" type="CanvasLayer" node_paths=PackedStringArray("_wandStatsLabel", "_spellQueueLabel", "_activeEffectsLabel")]
+script = ExtResource("1_3h8aa")
+_wandStatsLabel = NodePath("Control/WandStatsLabel")
+_spellQueueLabel = NodePath("Control/SpellQueueLabel")
+_activeEffectsLabel = NodePath("Control/ActiveEffectsLabel")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WandStatsLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 170.0
+text = "法杖状态"
+
+[node name="SpellQueueLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 180.0
+offset_right = 320.0
+offset_bottom = 430.0
+
+[node name="ActiveEffectsLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 20.0
+offset_right = 1000.0
+offset_bottom = 220.0
