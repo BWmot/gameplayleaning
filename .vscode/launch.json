@@ -1,61 +1,39 @@
 {
+  "version": "0.2.0",
   "configurations": [
     {
-      "name": "Attach",
-      "type": "godot-mono",
-      "request": "attach",
-      "address": "localhost",
-      "port": 23685
-    },
-    {
-      "name": "Launch with Debugger",
-      "type": "godot-mono",
-      "request": "launch",
-      "mode": "executable",
-      "preLaunchTask": "build",
-      "executable": "G:\\GODOT\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
-      "executableArguments": [
-        "--path",
-        "${workspaceRoot}",
-        "--remote-debug",
-        "localhost:23685",
-        "--wait-for-debugger"
-      ]
-    },
-    {
       "name": "Launch",
-      "type": "godot-mono",
+      "type": "coreclr",
       "request": "launch",
-      "mode": "executable",
-      "preLaunchTask": "build",
-      "executable": "G:\\GODOT\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
-      // See which arguments are available here:
-      // https://docs.godotengine.org/en/stable/getting_started/editor/command_line_tutorial.html
-      "executableArguments": [
+      "program": "${config:godot-dotnet-tools.executablePath}",
+      "preLaunchTask": "build1",
+      "args": [
         "--path",
         "${workspaceRoot}"
-      ]
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopAtEntry": false
     },
     {
-      "name": "Play in Editor",
-      "type": "godot-mono",
-      "mode": "playInEditor",
-      "request": "launch"
-    },
-    {
-      "name": "Launch (Select Scene)",
-      "type": "godot-mono",
+      "name": "Launch Editor",
+      "type": "coreclr",
       "request": "launch",
-      "mode": "executable",
-      "preLaunchTask": "build",
-      "executable": "G:\\GODOT\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
-      // See which arguments are available here:
-      // https://docs.godotengine.org/en/stable/getting_started/editor/command_line_tutorial.html
-      "executableArguments": [
+      "program": "${config:godot-dotnet-tools.executablePath}",
+      "preLaunchTask": "build1",
+      "args": [
         "--path",
         "${workspaceRoot}",
-        "${command:SelectLaunchScene}"
-      ]
+        "--editor"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Attach to Process",
+      "type": "coreclr",
+      "request": "attach"
     }
   ]
 }

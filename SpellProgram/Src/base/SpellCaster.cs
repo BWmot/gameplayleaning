@@ -39,7 +39,7 @@ public partial class SpellCaster : Node2D
         }
         
         // 记录到调试UI
-        var debugUI = GetNode<SpellDebugUI>("/root/spellprogram_main_debug/DebugUI");
+        var debugUI = GetNode<SpellDebugUI>("/root/spellprogram_main_debug/SpellDebugUI");
         if (debugUI != null)
         {
             // 这里可以传递更多具体数据

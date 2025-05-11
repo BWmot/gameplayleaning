@@ -10,4 +10,4 @@ script = ExtResource("1_usecy")
 WandScene = ExtResource("2_ha2dx")
 ProjectileScene = ExtResource("3_hvsmv")
 
-[node name="DebugUI" parent="." instance=ExtResource("4_hvsmv")]
+[node name="SpellDebugUI" parent="." instance=ExtResource("4_hvsmv")]

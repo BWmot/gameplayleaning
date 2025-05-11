@@ -37,7 +37,7 @@ public partial class ProjectileSpell : Spell
         caster.SpawnProjectile(ProjectileScene, caster.CastDirection, finalProperties);
 
         // 记录到调试UI (如果存在)
-        SpellDebugUI debugUI = caster.GetNode<SpellDebugUI>("/root/spellprogram_main_debug/DebugUI");
+        SpellDebugUI debugUI = caster.GetNode<SpellDebugUI>("/root/spellprogram_main_debug/SpellDebugUI");
         if (debugUI != null)
         {
             debugUI.LogSpellCast(this, finalProperties);

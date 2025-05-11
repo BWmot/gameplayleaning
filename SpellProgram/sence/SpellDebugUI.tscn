@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cueaenf0ls02j" path="res://SpellProgram/Src/base/SpellDebugUI.cs" id="1_3h8aa"]
 
-[node name="SpellDebugUi" type="CanvasLayer" node_paths=PackedStringArray("_wandStatsLabel", "_spellQueueLabel", "_activeEffectsLabel")]
+[node name="SpellDebugUI" type="CanvasLayer" node_paths=PackedStringArray("_wandStatsLabel", "_spellQueueLabel", "_activeEffectsLabel")]
 script = ExtResource("1_3h8aa")
 _wandStatsLabel = NodePath("Control/WandStatsLabel")
 _spellQueueLabel = NodePath("Control/SpellQueueLabel")
@@ -28,9 +28,9 @@ text = "法杖状态"
 [node name="SpellQueueLabel" type="Label" parent="Control"]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 180.0
+offset_top = 243.0
 offset_right = 320.0
-offset_bottom = 430.0
+offset_bottom = 493.0
 
 [node name="ActiveEffectsLabel" type="Label" parent="Control"]
 layout_mode = 0

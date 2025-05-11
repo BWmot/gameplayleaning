@@ -41,10 +41,10 @@ public partial class SpellprogramMainDebug : Node2D
         _testWand.AddSpell(damageModifier); // 先添加修饰符
         _testWand.AddSpell(projectileSpell); // 再添加投射物
 
-        // 创建调试UI
-        _debugUI = new SpellDebugUI();
-        _debugUI.Name = "DebugUI";
-        AddChild(_debugUI);
+        // 获取场景中的UI节点
+        _debugUI = GetNode<SpellDebugUI>("SpellDebugUI");
+        // _debugUI.Name = "DebugUI";
+        // AddChild(_debugUI);
         _debugUI.SetTargets(_testWand, _player);
 
         // 输出提示
