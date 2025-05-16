@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c784b446j3tqb"]
+
+[ext_resource type="Script" uid="uid://bmhdishputtp0" path="res://SpellProgram/Src/base/SpellEditorUI.cs" id="1_rfsxv"]
+
+[node name="SpellEditorUI" type="CanvasLayer"]
+script = ExtResource("1_rfsxv")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
