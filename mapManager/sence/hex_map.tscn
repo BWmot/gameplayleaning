@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckpqivifkene3"]
-
-[ext_resource type="Script" uid="uid://mhtjwyly3ga4" path="res://mapManager/src/HexMap.cs" id="1_bnua5"]
-
-[node name="HexMap" type="Node2D"]
-script = ExtResource("1_bnua5")
