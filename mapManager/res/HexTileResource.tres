@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://dkqwqbfu6irf2"]
+
+[ext_resource type="Texture2D" uid="uid://ukiq70eufem5" path="res://art/Tile/Tileset1.png" id="1_nntj2"]
+[ext_resource type="Script" uid="uid://ck8p3sy8cvqwp" path="res://mapManager/src/HexTileResource.cs" id="1_xtvm3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nntj2"]
+texture = ExtResource("1_nntj2")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+0:4/0 = 0
+0:5/0 = 0
+0:6/0 = 0
+0:7/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_5rs5x"]
+tile_shape = 3
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_nntj2")
+
+[resource]
+script = ExtResource("1_xtvm3")
+TileSet = SubResource("TileSet_5rs5x")
+SourceId = 0

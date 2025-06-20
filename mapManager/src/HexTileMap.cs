@@ -7,9 +7,12 @@ public partial class HexTileMap : TileMapLayer
     public float HexSize { get; set; } = 32.0f;
     
     [Export]
-    public bool FlatTop { get; set; } = true; // true为平顶，false为尖顶
+    public bool FlatTop { get; set; } = true;
+    
+    [Export]
+    public HexTileResource TileResource { get; set; }
 
-    private Dictionary<HexCoordinates, int> hexTiles = new Dictionary<HexCoordinates, int>();
+    private Dictionary<HexCoordinates, HexTileResource.TileType> hexTiles = new Dictionary<HexCoordinates, HexTileResource.TileType>();
 
     public override void _Ready()
     {
@@ -19,13 +22,27 @@ public partial class HexTileMap : TileMapLayer
 
     private void SetupHexTileSet()
     {
-        if (TileSet == null)
+        if (TileResource?.TileSet == null)
         {
-            GD.PrintErr("需要设置TileSet资源");
+            GD.PrintErr("需要设置HexTileResource和TileSet资源");
             return;
         }
         
-        // 这里可以添加验证TileSet是否为六边形的逻辑
+        // 设置TileMapLayer的TileSet
+        TileSet = TileResource.TileSet;
+        
+        // 验证源是否存在
+        if (!TileSet.HasSource(TileResource.SourceId))
+        {
+            GD.PrintErr($"TileSet中不存在源ID: {TileResource.SourceId}");
+            return;
+        }
+        
+        var source = TileSet.GetSource(TileResource.SourceId);
+        if (source is TileSetAtlasSource atlasSource)
+        {
+            GD.Print($"图集源加载成功, 尺寸: {atlasSource.TextureRegionSize}");
+        }
     }
 
     // 立方体坐标转换为世界坐标
@@ -66,19 +83,36 @@ public partial class HexTileMap : TileMapLayer
         return RoundHex(q, r);
     }
 
+    // 立方体坐标转为轴坐标
+    public Vector2I HexToAxial(HexCoordinates hex)
+    {
+        int col = hex.Q;
+        int row = hex.R + (hex.Q - (hex.Q & 1)) / 2; // 偶数列偏移
+        return new Vector2I(col, row);
+    }
+
+    // 轴坐标转为立方体坐标
+    public HexCoordinates AxialToHex(Vector2I axial)
+    {
+        int q = axial.X;
+        int r = axial.Y - (axial.X - (axial.X & 1)) / 2; // 偶数列偏移
+        return new HexCoordinates(q, r);
+    }
+
+
     // 四舍五入到最近的六边形
     private HexCoordinates RoundHex(float q, float r)
     {
         float s = -q - r;
-        
+
         int roundQ = Mathf.RoundToInt(q);
         int roundR = Mathf.RoundToInt(r);
         int roundS = Mathf.RoundToInt(s);
-        
+
         float qDiff = Mathf.Abs(roundQ - q);
         float rDiff = Mathf.Abs(roundR - r);
         float sDiff = Mathf.Abs(roundS - s);
-        
+
         if (qDiff > rDiff && qDiff > sDiff)
         {
             roundQ = -roundR - roundS;
@@ -87,23 +121,35 @@ public partial class HexTileMap : TileMapLayer
         {
             roundR = -roundQ - roundS;
         }
-        
+
         return new HexCoordinates(roundQ, roundR);
     }
 
-    // 设置六边形瓦片
-    public void SetHexTile(HexCoordinates hex, int sourceId, Vector2I atlasCoords)
+    // 设置六边形瓦片（通过瓦片类型）
+    public void SetHexTile(HexCoordinates hex, HexTileResource.TileType tileType)
     {
-        // 将立方体坐标转换为TileMap的坐标系统
+        if (TileResource == null) return;
+        
         Vector2I tilePos = HexToTileMapCoords(hex);
-        SetCell(tilePos, sourceId, atlasCoords);
-        hexTiles[hex] = sourceId;
+        Vector2I atlasCoords = TileResource.GetAtlasCoords(tileType);
+        
+        SetCell(tilePos, TileResource.SourceId, atlasCoords);
+        hexTiles[hex] = tileType;
     }
 
-    // 获取六边形瓦片
-    public int GetHexTile(HexCoordinates hex)
+    // 设置六边形瓦片（直接指定图集坐标）
+    public void SetHexTile(HexCoordinates hex, Vector2I atlasCoords)
     {
-        return hexTiles.GetValueOrDefault(hex, -1);
+        if (TileResource == null) return;
+        
+        Vector2I tilePos = HexToTileMapCoords(hex);
+        SetCell(tilePos, TileResource.SourceId, atlasCoords);
+    }
+
+    // 获取六边形瓦片类型
+    public HexTileResource.TileType GetHexTileType(HexCoordinates hex)
+    {
+        return hexTiles.GetValueOrDefault(hex, HexTileResource.TileType.Grass);
     }
 
     // 移除六边形瓦片
@@ -142,25 +188,13 @@ public partial class HexTileMap : TileMapLayer
         return results;
     }
 
-    // 获取从起点到终点的路径
-    public List<HexCoordinates> GetPath(HexCoordinates start, HexCoordinates end)
+    // 随机放置瓦片
+    public void PlaceRandomTile(HexCoordinates hex)
     {
-        var path = new List<HexCoordinates>();
-        int distance = start.DistanceTo(end);
+        if (TileResource == null) return;
         
-        for (int i = 0; i <= distance; i++)
-        {
-            float t = distance == 0 ? 0.0f : (float)i / distance;
-            path.Add(LerpHex(start, end, t));
-        }
-        
-        return path;
-    }
-
-    private HexCoordinates LerpHex(HexCoordinates a, HexCoordinates b, float t)
-    {
-        float q = Mathf.Lerp(a.Q, b.Q, t);
-        float r = Mathf.Lerp(a.R, b.R, t);
-        return RoundHex(q, r);
+        var tileTypes = TileResource.GetAllTileTypes();
+        var randomType = tileTypes[GD.RandRange(0, tileTypes.Length - 1)];
+        SetHexTile(hex, randomType);
     }
 }
