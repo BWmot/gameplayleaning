@@ -28,6 +28,9 @@ public partial class HexMapExample : Node2D
         }
     }
 
+    /// <summary>
+    /// 根据六边形坐标与原点距离获取瓦片类型
+    /// </summary>
     private HexTileResource.TileType GetTileTypeByPosition(HexCoordinates hex)
     {
         // 根据坐标决定瓦片类型
@@ -39,7 +42,7 @@ public partial class HexMapExample : Node2D
             1 => HexTileResource.TileType.Forest,
             2 => HexTileResource.TileType.Grass,
             3 => HexTileResource.TileType.Water,
-            4 => HexTileResource.TileType.Desert,
+            4 => HexTileResource.TileType.White,
             _ => HexTileResource.TileType.White // 默认类型
         };
     }
@@ -81,7 +84,16 @@ public partial class HexMapExample : Node2D
     private void HandleMouseMove(InputEventMouseMotion motionEvent)
     {
         Vector2 globalPos = GetGlobalMousePosition();
+
+        // 添加调试信息
+        GD.Print($"Global mouse pos: {globalPos}");
+
         HexCoordinates hoveredHex = hexMap.WorldToHex(globalPos);
+
+        // 验证转换后再转换回来的位置
+        Vector2 hexWorldPos = hexMap.HexToWorld(hoveredHex);
+        GD.Print($"Hovered hex: {hoveredHex}, World pos: {hexWorldPos}");
+        
         
         // 如果悬停在新的六边形上
         if (!hoveredHex.Equals(lastHighlightedHex))
@@ -91,7 +103,7 @@ public partial class HexMapExample : Node2D
             {
                 RestoreOriginalTile(lastHighlightedHex);
             }
-            
+
             // 高亮当前悬停的六边形
             HighlightHex(hoveredHex);
             lastHighlightedHex = hoveredHex;
